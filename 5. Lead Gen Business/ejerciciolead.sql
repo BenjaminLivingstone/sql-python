@@ -35,7 +35,7 @@ SELECT * FROM sites;
 
 SELECT domain_name, client_id
 FROM sites
-WHERE client_id=10
+WHERE client_id=10;
 
 -- 4. ¿Qué consulta ejecutaría para obtener el número total de sitios creados por mes por año para el cliente con una identificación de 1? ¿Qué pasa con el cliente = 20?
 
@@ -43,7 +43,7 @@ SELECT * from sites;
 
 SELECT client_id, COUNT(*) AS number_of_websites, DATE_FORMAT(created_datetime,'%M') month_created, DATE_FORMAT(created_datetime'%Y') year_created
 FROM sites 
-WHERE client_id=20
+WHERE client_id=1
 GROUP BY client_id, month_created, year_created;
 
 SELECT * from clients;
@@ -55,15 +55,15 @@ GROUP BY client_id, month_created, year_created;
 
 -- 5. ¿Qué consulta ejecutaría para obtener el número total de clientes potenciales generados para cada uno de los sitios entre el 1 de enero de 2011 y el 15 de febrero de 2011?
 
-SELECT sites.domain_name AS website, count(leads_id) as number_of_leads, DATE_FORMAT(leads.registered_datetime, '%M %e, %Y')
+SELECT sites.domain_name AS website, count(leads_id) as number_of_leads, DATE_FORMAT(leads.registered_datetime, '%M %e %Y')
 FROM sites, leads
 WHERE sites.site_id=leads.site_id AND leads.registered_datetime BETWEEN '2011-1-1' AND '2011-2-15'
 GROUP BY sites.domain_name, leads.registered_datetime;
 
--- SELECT sites.domain_name AS website, count(leads_id) as number_of_leads, CONCAT(MONTHNAME(leads.registered_datetime),DAY(leads.registered_datetime), leads.registered_datetime)
--- FROM sites, leads
--- WHERE sites.site_id=leads.site_id AND leads.registered_datetime BETWEEN '2011-1-1' AND '2011-2-15'
--- GROUP BY sites.domain_name, leads.registered_datetime;
+SELECT sites.domain_name AS website, count(leads_id) as number_of_leads, CONCAT(MONTHNAME(leads.registered_datetime),DAY(leads.registered_datetime), leads.registered_datetime)
+FROM sites, leads
+WHERE sites.site_id=leads.site_id AND leads.registered_datetime BETWEEN '2011-1-1' AND '2011-2-15'
+GROUP BY sites.domain_name, leads.registered_datetime;
 
 -- 6. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes y el número total de clientes potenciales que hemos generado para cada uno de nuestros clientes entre el 1 de enero de 2011 y el 31 de diciembre de 2011?
 
